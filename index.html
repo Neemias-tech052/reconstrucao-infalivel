@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d1b2a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reconstrução Infalível — Neemias</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: #0d1b2a;
+  color: #e8dcc8;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
+
+.header { text-align: center; margin-bottom: 2rem; }
+.header::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, #c9a84c, #e8c97a, #c9a84c);
+  margin: 1rem auto 0;
+}
+.title-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #c9a84c; font-weight: 700; margin-bottom: 0.5rem; }
+.main-title { font-family: 'Cinzel', serif; font-size: clamp(22px, 6vw, 32px); font-weight: 600; color: #f0e6ce; line-height: 1.2; }
+.subtitle { font-size: 13px; color: #8a9bb5; margin-top: 0.5rem; font-weight: 300; letter-spacing: 1px; }
+
+.verse-banner {
+  background: linear-gradient(135deg, #1a2e45, #162337);
+  border: 1px solid #c9a84c44;
+  border-left: 3px solid #c9a84c;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.verse-icon { font-size: 22px; color: #c9a84c; margin-top: 2px; flex-shrink: 0; }
+.verse-text { font-style: italic; font-size: 14px; color: #d4c8b0; line-height: 1.6; }
+.verse-ref { font-size: 11px; color: #c9a84c; font-weight: 700; letter-spacing: 1px; margin-top: 4px; }
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 480px) { .stats-row { grid-template-columns: repeat(4, 1fr); } }
+
+.stat-card {
+  background: #162337;
+  border: 1px solid #2a3f5a;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.stat-card.gold::before { background: linear-gradient(90deg, #c9a84c, #e8c97a); }
+.stat-card.blue::before { background: linear-gradient(90deg, #4a90d9, #7bb3e8); }
+.stat-card.green::before { background: linear-gradient(90deg, #4caf7d, #7dd4a8); }
+.stat-card.coral::before { background: linear-gradient(90deg, #e07a5f, #f0a896); }
+
+.stat-num { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 600; line-height: 1; margin-bottom: 4px; }
+.stat-card.gold .stat-num { color: #e8c97a; }
+.stat-card.blue .stat-num { color: #7bb3e8; }
+.stat-card.green .stat-num { color: #7dd4a8; }
+.stat-card.coral .stat-num { color: #f0a896; }
+.stat-label { font-size: 10px; color: #6a82a0; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; }
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #c9a84c;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card { background: #162337; border: 1px solid #2a3f5a; border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem; }
+
+.pillar-list { list-style: none; }
+.pillar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid #1e3250;
+  cursor: pointer;
+  transition: padding-left 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.pillar-item:last-child { border-bottom: none; }
+.pillar-item:active { padding-left: 4px; }
+.pillar-num { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 600; color: #c9a84c; min-width: 28px; line-height: 1; margin-top: 2px; }
+.pillar-name { font-size: 14px; font-weight: 700; color: #e8dcc8; line-height: 1.2; }
+.pillar-desc { font-size: 12px; color: #6a82a0; margin-top: 2px; line-height: 1.4; }
+.pillar-check {
+  margin-left: auto;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid #2a3f5a;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.pillar-item.done .pillar-check { background: #4caf7d; border-color: #4caf7d; }
+.pillar-item.done .pillar-check i { color: #fff; font-size: 14px; }
+.pillar-item:not(.done) .pillar-check i { display: none; }
+
+/* PROGRESSO DINÂMICO */
+.progress-section { margin-bottom: 1.25rem; }
+.progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.progress-name { font-size: 13px; color: #d4c8b0; font-weight: 700; }
+.progress-pct { font-size: 13px; color: #c9a84c; font-weight: 700; }
+.progress-hint { font-size: 11px; color: #4a6080; margin-top: 4px; }
+.progress-bar-bg { background: #1e3250; border-radius: 4px; height: 10px; overflow: hidden; }
+.progress-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+.fill-gold { background: linear-gradient(90deg, #c9a84c, #e8c97a); }
+.fill-blue { background: linear-gradient(90deg, #4a90d9, #7bb3e8); }
+.fill-green { background: linear-gradient(90deg, #4caf7d, #7dd4a8); }
+.fill-coral { background: linear-gradient(90deg, #e07a5f, #f0a896); }
+
+.week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 1.5rem; }
+.day-dot {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  background: #1e3250;
+  border: 1px solid #2a3f5a;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 4px 2px;
+  -webkit-tap-highlight-color: transparent;
+}
+.day-dot.active { background: #1a3a25; border-color: #4caf7d; }
+.day-dot.today { background: #1e2e45; border-color: #c9a84c; }
+.day-label { font-size: 9px; font-weight: 700; letter-spacing: 0.5px; color: #4a6080; text-transform: uppercase; }
+.day-dot.active .day-label { color: #4caf7d; }
+.day-dot.today .day-label { color: #c9a84c; }
+.day-icon { font-size: 16px; color: #2a3f5a; }
+.day-dot.active .day-icon { color: #4caf7d; }
+.day-dot.today .day-icon { color: #c9a84c; }
+
+.challenge-card {
+  background: linear-gradient(135deg, #1a2e1e, #162337);
+  border: 1px solid #4caf7d33;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.challenge-icon-wrap { width: 44px; height: 44px; background: #1a3a25; border: 1px solid #4caf7d44; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.challenge-icon-wrap i { font-size: 22px; color: #7dd4a8; }
+.challenge-title { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600; color: #7dd4a8; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.challenge-num { font-size: 11px; color: #4a6080; margin-bottom: 6px; }
+.challenge-text { font-size: 13px; color: #d4c8b0; line-height: 1.6; }
+.challenge-btn {
+  margin-top: 12px;
+  background: #1a3a25;
+  border: 1px solid #4caf7d66;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #7dd4a8;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  width: 100%;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.challenge-btn:active { background: #224d30; }
+
+.chapter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
+.chap-pill {
+  background: #162337;
+  border: 1px solid #2a3f5a;
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6a82a0;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.chap-pill.reading { background: #2a1e08; border-color: #c9a84c; color: #e8c97a; }
+.chap-pill.read { background: #1c2e12; border-color: #4caf7d55; color: #7dd4a8; }
+
+/* LEGENDA */
+.legend {
+  background: #0f2035;
+  border: 1px solid #2a3f5a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 1.5rem;
+  font-size: 12px;
+  color: #6a82a0;
+  line-height: 1.8;
+}
+.legend strong { color: #c9a84c; }
+.legend span { margin-right: 12px; }
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #1a3a25;
+  border: 1px solid #4caf7d55;
+  color: #7dd4a8;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 24px;
+  transition: transform 0.3s ease;
+  z-index: 999;
+  white-space: nowrap;
+  font-family: 'Lato', sans-serif;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+.footer-verse { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3250; }
+.footer-text { font-family: 'Cinzel', serif; font-size: 12px; color: #3a5070; letter-spacing: 2px; }
+
+.anotacao-area {
+  width: 100%;
+  background: #0a1520;
+  border: 1px solid #c9a84c33;
+  border-radius: 8px;
+  padding: 12px;
+  color: #e8dcc8;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 100px;
+  margin-top: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-shadow: inset 0 2px 8px #00000044;
+}
+.anotacao-area:focus { border-color: #c9a84c88; }
+.anotacao-area::placeholder { color: #3a5070; font-style: italic; }
+.save-indicator { font-size: 11px; color: #4a6080; margin-top: 6px; min-height: 16px; }
+.save-indicator.saved { color: #4caf7d; }
+
+/* MODAL DE LEITURA */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000000cc;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 1rem;
+}
+.modal-overlay.open { display: block; }
+.modal-box {
+  background: #0f1e30;
+  border: 1px solid #2a3f5a;
+  border-radius: 14px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2rem;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+.modal-titulo {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #e8c97a;
+}
+.modal-subtitulo {
+  font-size: 11px;
+  color: #4a6080;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.modal-close {
+  background: #1e3250;
+  border: 1px solid #2a3f5a;
+  border-radius: 8px;
+  padding: 6px 12px;
+  color: #8a9bb5;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+.modal-versiculos {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #d4c8b0;
+}
+.modal-versiculos .vnum {
+  color: #c9a84c;
+  font-weight: 700;
+  font-size: 11px;
+  margin-right: 4px;
+  vertical-align: super;
+}
+.modal-btn-lido {
+  margin-top: 1.5rem;
+  background: #1a3a25;
+  border: 1px solid #4caf7d66;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #7dd4a8;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+.modal-btn-lido:active { background: #224d30; }
+
+.dupla-card {
+  background: linear-gradient(135deg, #1e1a35, #162337);
+  border: 1px solid #7b6fd455;
+  border-left: 3px solid #9b8fe8;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.dupla-title { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; color: #b8aeee; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.dupla-desc { font-size: 12px; color: #6a82a0; margin-bottom: 12px; line-height: 1.5; }
+.dupla-btn {
+  background: #1e1a35;
+  border: 1px solid #7b6fd466;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #b8aeee;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  width: 100%;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.dupla-btn:active { background: #2a2550; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <p class="title-tag">Reconstrução Infalível</p>
+  <h1 class="main-title">Levantando os Muros da Nossa Vida Espiritual</h1>
+  <p class="subtitle">Livro de Neemias • Jornada de Fé e Propósito</p>
+</div>
+
+<div class="verse-banner">
+  <i class="ti ti-book-2 verse-icon"></i>
+  <div>
+    <p class="verse-text">"Levantai-vos e edifiquemos o muro, para que não sejamos mais objeto de escárnio."</p>
+    <p class="verse-ref">Neemias 2:17</p>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card gold">
+    <div class="stat-num">52</div>
+    <div class="stat-label">Dias p/ reconstruir</div>
+  </div>
+  <div class="stat-card blue">
+    <div class="stat-num" id="stat-chap">0</div>
+    <div class="stat-label">Caps. lidos</div>
+  </div>
+  <div class="stat-card green">
+    <div class="stat-num" id="stat-done">0</div>
+    <div class="stat-label">Pilares conquistados</div>
+  </div>
+  <div class="stat-card coral">
+    <div class="stat-num" id="stat-oracao">0</div>
+    <div class="stat-label">Dias de oração</div>
+  </div>
+</div>
+
+<!-- LEGENDA EXPLICATIVA -->
+<div class="legend">
+  <strong>Como o progresso funciona:</strong><br>
+  <span>📅 Marcar dias de oração → <strong style="color:#e8c97a">Vida de oração</strong> sobe</span><br>
+  <span>📖 Marcar capítulos lidos → <strong style="color:#7bb3e8">Estudo da palavra</strong> sobe</span><br>
+  <span>🏆 Conquistar pilares → <strong style="color:#7dd4a8">Comunhão</strong> e <strong style="color:#f0a896">Serviço</strong> sobem</span><br>
+  <span>🔥 Avançar desafios → tudo sobe um pouco</span>
+</div>
+
+<div class="section-title"><i class="ti ti-calendar-week"></i> Minha semana de oração</div>
+<div class="week-grid" id="week-grid"></div>
+
+<div class="challenge-card">
+  <div class="challenge-icon-wrap"><i class="ti ti-flame"></i></div>
+  <div style="width:100%">
+    <p class="challenge-title">Desafio do Dia</p>
+    <p class="challenge-num" id="challenge-num">Desafio 1 de 7</p>
+    <p class="challenge-text" id="challenge-text">Escreva uma oração como a de Neemias (cap. 1): confesse, agradeça e peça um coração renovado. Deus ouve quem ora com sinceridade.</p>
+    <button class="challenge-btn" onclick="nextChallenge()">➡ Próximo desafio (+progresso)</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="section-title"><i class="ti ti-wall"></i> Os 7 Pilares da Reconstrução</div>
+  <ul class="pillar-list" id="pillar-list"></ul>
+</div>
+
+<div class="card">
+  <div class="section-title"><i class="ti ti-trending-up"></i> Progresso espiritual</div>
+  <div id="progress-bars"></div>
+</div>
+
+<div class="section-title"><i class="ti ti-book-open"></i> Capítulos de Neemias</div>
+<p style="font-size:12px;color:#4a6080;margin-bottom:1rem;">Toque no capítulo para ler — ao terminar, clique "Terminei de ler" e a barra sobe automaticamente.</p>
+<div class="chapter-row" id="chap-row"></div>
+
+<!-- ANOTAÇÃO PESSOAL -->
+<div class="card" style="background: linear-gradient(135deg, #12213a, #1a2e1e); border-color: #c9a84c33;">
+  <div class="section-title" style="color:#e8c97a"><i class="ti ti-pencil"></i> Minha reflexão da semana</div>
+  <p style="font-size:12px;color:#6a82a0;margin-bottom:8px;">O que Deus está falando com você nessa jornada? Escreva aqui — fica salvo no seu celular.</p>
+  <textarea class="anotacao-area" id="anotacao" placeholder="Escreva sua reflexão, oração ou o que Deus tem colocado no seu coração..." oninput="salvarAnotacao()"></textarea>
+  <p class="save-indicator" id="save-indicator"></p>
+</div>
+
+<!-- COMPARTILHAR COM DUPLA -->
+<div class="dupla-card">
+  <p class="dupla-title"><i class="ti ti-users" style="font-size:16px"></i> Dupla de fé</p>
+  <p class="dupla-desc">Neemias não reconstruiu sozinho — cada um cuidou de uma parte do muro (cap. 3). Compartilhe seu progresso com sua dupla pelo WhatsApp!</p>
+  <button class="dupla-btn" onclick="compartilharDupla()">💬 Gerar mensagem para minha dupla</button>
+</div>
+
+<!-- BOTÃO ZERAR -->
+<div style="text-align:center;margin-bottom:2rem;">
+  <button onclick="zerarTudo()" style="background:transparent;border:1px solid #2a3f5a;border-radius:8px;padding:8px 18px;font-size:12px;color:#4a6080;cursor:pointer;font-family:'Lato',sans-serif;">
+    🗑 Zerar todo o meu progresso
+  </button>
+</div>
+
+<div class="footer-verse">
+  <p class="footer-text">"A alegria do Senhor é a vossa força" — Neemias 8:10</p>
+</div>
+
+<!-- MODAL DE LEITURA DA BÍBLIA -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <p class="modal-titulo" id="modal-titulo">Neemias 1</p>
+        <p class="modal-subtitulo">Almeida Corrigida e Fiel</p>
+      </div>
+      <button class="modal-close" onclick="fecharModal()">✕ Fechar</button>
+    </div>
+    <div class="modal-versiculos" id="modal-versiculos"></div>
+    <button class="modal-btn-lido" id="modal-btn-lido" onclick="marcarLidoDoModal()">✓ Terminei de ler este capítulo</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SAVE_KEY = 'neemias_v2';
+
+const acf = {
+1: [[1,"As palavras de Neemias, filho de Hacalias. No mês de quisleu, no ano vigésimo, estando eu em Susã, a capital,"],[2,"veio Hanani, um dos meus irmãos, ele e alguns homens de Judá; e eu lhes perguntei sobre os judeus, os que haviam escapado e ficado do cativeiro, e acerca de Jerusalém."],[3,"E me disseram: Os que ficaram da catividade estão na província em grande mal e opróbrio; e o muro de Jerusalém está derrubado e as suas portas, consumidas pelo fogo."],[4,"E aconteceu que, quando ouvi estas palavras, me assentei e chorei; e me lamentei por alguns dias; e continuei jejuando e orando perante o Deus dos céus,"],[5,"e disse: Ó Senhor, Deus dos céus, Deus grande e tremendo, que guarda a aliança e a misericórdia para com aqueles que o amam e guardam os seus mandamentos,"],[6,"esteja a tua orelha atenta, e abertos os teus olhos para ouvires a oração do teu servo, que eu faço perante ti neste momento, dia e noite, pelos filhos de Israel, teus servos, confessando os pecados dos filhos de Israel, que cometemos contra ti; tanto eu como a casa de meu pai pecamos."],[7,"Corremos para a corrupção contra ti, e não guardamos os mandamentos, e os estatutos, e os juízos que ordenaste a Moisés, teu servo."],[8,"Lembra-te agora da palavra que ordenaste a Moisés, teu servo, dizendo: Se vós transgredirdes, eu vos espalharei entre os povos;"],[9,"mas se voltardes para mim, e guardardes os meus mandamentos, e os cumprirdes, ainda que os vossos desterrados estejam nos confins do céu, eu os ajuntarei dali, e os trarei ao lugar que escolhi para ali fazer habitar o meu nome."],[10,"São estes teus servos e teu povo, os que remiste com a tua grande força e com o teu poderoso braço."],[11,"Ah! Senhor, esteja a tua orelha atenta à oração do teu servo e à oração dos teus servos, que desejam temer o teu nome; e faz prosperar hoje o teu servo, e dá-lhe misericórdia perante este homem. Porque eu era copeiro do rei."]],
+2: [[1,"E aconteceu no mês de Nisã, no ano vigésimo do rei Artaxerxes, que estando o vinho diante dele, tomei o vinho e o dei ao rei. E como eu nunca antes havia estado triste na sua presença,"],[2,"o rei me disse: Por que está triste a tua face, pois não és enfermo? Isso não é outra coisa, senão tristeza de coração. Então tive muito grande temor."],[3,"E disse ao rei: Viva o rei para sempre. Por que não estaria triste a minha face, quando a cidade, lugar dos sepulcros dos meus pais, está assolada, e as suas portas consumidas pelo fogo?"],[4,"Então o rei me disse: Que coisa é a que pedes? E eu orei ao Deus dos céus."],[5,"E disse ao rei: Se ao rei parecer bem, e se o teu servo é aceito perante ti, peço-te que me mandes a Judá, à cidade dos sepulcros dos meus pais, para que eu a reedifique."],[6,"E o rei me disse (estando a rainha assentada ao seu lado): Quanto tempo durará a tua viagem, e quando voltarás? E pareceu bem ao rei enviar-me, quando eu lhe fixei o tempo."],[7,"E disse mais ao rei: Se ao rei parecer bem, que me sejam dadas cartas para os governadores dalém do rio, para que me conduzam até que chegue a Judá;"],[8,"como também carta a Asafe, guarda dos bosques do rei, para que me dê madeira para cobrir as portas da cidadela do templo, e para o muro da cidade, e para a casa em que eu entrar. E o rei mo concedeu, segundo a boa mão do meu Deus sobre mim."],[9,"Então vim aos governadores dalém do rio, e dei-lhes as cartas do rei. E o rei mandou comigo capitães do exército e cavaleiros."],[10,"E ouvindo-o Sambalate, o horonita, e Tobias, o servo amonita, foi-lhes muito mal que viesse alguém a procurar o bem dos filhos de Israel."],[11,"Assim cheguei a Jerusalém, e ali estive três dias."],[12,"Então me levantei de noite, eu e poucos homens comigo, e não declarei a homem algum o que o meu Deus pusera no meu coração para fazer em Jerusalém; e não havia animal algum comigo, senão o animal em que eu cavalgava."],[13,"E saí de noite pela porta do vale, e fui para a fonte do dragão, e à porta do monturo; e olhei os muros de Jerusalém, que estavam derrubados e as suas portas consumidas pelo fogo."],[14,"Depois passei à porta da fonte e ao tanque do rei; e não havia lugar onde passasse o animal que estava debaixo de mim."],[15,"Então subi de noite pelo ribeiro, e olhei o muro; e tornei a entrar pela porta do vale, e assim voltei."],[16,"E os magistrados não souberam onde eu fora, nem o que eu tinha feito; e até então eu não o havia declarado aos judeus, nem aos sacerdotes, nem aos nobres, nem aos magistrados, nem aos mais que faziam a obra."],[17,"Disse-lhes, pois: Vós vedes o mal em que estamos, que Jerusalém está assolada, e as suas portas consumidas pelo fogo. Vinde e reedifiquemos o muro de Jerusalém, para que não sejamos mais objeto de escárnio."],[18,"E declarei-lhes que a mão do meu Deus havia sido boa sobre mim, e também as palavras do rei, que me tinha dito. E disseram: Levantemo-nos e edifiquemos. E esforçaram as suas mãos para o bem."],[19,"Mas, ouvindo-o Sambalate, o horonita, e Tobias, o servo amonita, e Gesém, o árabe, riram-se de nós, e nos desprezaram, dizendo: Que é isso que fazeis vós? Rebellais-vos contra o rei?"],[20,"Então lhes respondi e disse: O Deus dos céus nos fará prosperar; pois nós, seus servos, nos levantaremos e edificaremos; mas vós não tendes parte, nem direito, nem memorial em Jerusalém."]],
+3: [[1,"Então se levantou Eliasibe, o sumo sacerdote, com seus irmãos os sacerdotes, e edificaram a porta das Ovelhas; eles a consagraram, e levantaram as suas portas; e até à torre de Meá a consagraram, até à torre de Hananeel."],[2,"E ao lado deles edificaram os homens de Jericó; e ao lado deles edificou Zacur, filho de Imri."],[3,"E os filhos de Hassenaá edificaram a porta dos Peixes; eles a cobriram, e levantaram as suas portas, os seus ferrolhos, e os seus trincos."],[4,"E ao lado deles restaurou Meremote, filho de Urias, filho de Hacoze; e ao lado deles restaurou Mesulão, filho de Berequias, filho de Mesezabeel; e ao lado deles restaurou Zadoque, filho de Baaná."],[5,"E ao lado deles restauraram os tecoítas; mas os seus nobres não submeteram os seus pescoços à obra de seu Senhor."],[6,"E Joiada, filho de Paseá, e Mesulão, filho de Besodias, restauraram a porta da Cidade Velha; eles a cobriram, e levantaram as suas portas, e os seus ferrolhos, e os seus trincos."],[7,"E ao lado deles restauraram Melatias, o gabaonita, e Jadom, o meronita, os homens de Gibeão e de Mispa, pela cadeira do governador dalém do rio."],[8,"Ao lado deles restaurou Uziel, filho de Haraaías, dos ourives; e ao lado deles restaurou Hananias, filho de um dos perfumeiros; e deixaram Jerusalém até ao muro largo."],[9,"E ao lado deles restaurou Refaías, filho de Hur, príncipe da metade da comarca de Jerusalém."],[10,"E ao lado deles restaurou Jedaías, filho de Harumafe, defronte de sua casa; e ao lado deles restaurou Hatuse, filho de Hasabonias."],[11,"Malquias, filho de Harim, e Hassube, filho de Paate-Moabe, restauraram outro trecho, e a torre dos Fornos."],[12,"E ao lado deles restaurou Salum, filho de Alohes, príncipe da metade da comarca de Jerusalém, ele e suas filhas."],[13,"Hanun e os moradores de Zanoa restauraram a porta do Vale; eles a edificaram e levantaram as suas portas, e os seus ferrolhos, e os seus trincos, e mil côvados do muro, até à porta do Monturo."],[14,"E Malquias, filho de Recabe, príncipe da comarca de Bete-Haquerém, restaurou a porta do Monturo; ele a edificou e levantou as suas portas, e os seus ferrolhos, e os seus trincos."],[15,"E Salum, filho de Col-Hoze, príncipe da comarca de Mispa, restaurou a porta da Fonte; ele a edificou, e a cobriu, e levantou as suas portas, e os seus ferrolhos, e os seus trincos; como também o muro do tanque de Siloé junto ao jardim do rei, até às escadas que descem da cidade de Davi."],[16,"Depois dele restaurou Neemias, filho de Azbuke, príncipe de metade da comarca de Bete-Zur, até defronte dos sepulcros de Davi, e até ao tanque que foi feito, e até à casa dos Guerreiros."],[17,"Depois dele restauraram os levitas, Reum, filho de Bani; ao lado dele restaurou Hasabias, príncipe da metade da comarca de Queila, pela sua comarca."],[18,"Depois dele restauraram seus irmãos, Bavai, filho de Henadade, príncipe da metade da comarca de Queila."],[19,"E ao lado dele restaurou Ezer, filho de Jesua, príncipe de Mispa, outro trecho defronte da subida à armaria, na virada do muro."],[20,"Depois dele Baruco, filho de Zabai, restaurou com ardor outro trecho, desde a virada até à porta da casa de Eliasibe, o sumo sacerdote."],[21,"Depois dele restaurou Meremote, filho de Urias, filho de Hacoze, outro trecho, desde a porta da casa de Eliasibe até ao fim da casa de Eliasibe."],[22,"E depois dele restauraram os sacerdotes, os homens da campina."],[23,"Depois deles restaurou Benjamim e Hassube defronte de sua casa; depois deles restaurou Azarias, filho de Maaséias, filho de Ananias, ao lado de sua casa."],[24,"Depois dele restaurou Binui, filho de Henadade, outro trecho, desde a casa de Azarias até à virada e até à esquina."],[25,"Palal, filho de Uzai, defronte da virada e da torre que sobressai da casa superior do rei que está no átrio da prisão. Depois dele, Pedaías, filho de Parós."],[26,"(E os netineus habitavam em Ofel até defronte da porta das Águas para o Oriente e da torre que sobressaía.)"],[27,"Depois deles restauraram os tecoítas outro trecho, defronte da grande torre que sobressaía, até ao muro de Ofel."],[28,"Desde a porta dos Cavalos restauraram os sacerdotes, cada um defronte de sua casa."],[29,"Depois deles restaurou Zadoque, filho de Imer, defronte de sua casa; e depois dele restaurou Semaia, filho de Secanias, guarda da porta do Oriente."],[30,"Depois dele restaurou Hananias, filho de Selemias, e Hanun, sexto filho de Zalafe, outro trecho. Depois deles restaurou Mesulão, filho de Berequias, defronte de seu aposento."],[31,"Depois dele restaurou Malquias, filho do ourives, até à casa dos netineus e dos mercadores, defronte da porta de Mifcade, e até ao quarto superior da esquina."],[32,"E entre o quarto superior da esquina e a porta das Ovelhas, restauraram os ourives e os mercadores."]],
+4: [[1,"E aconteceu que, ouvindo Sambalate que nós edificávamos o muro, irou-se, e indignou-se muito, e escarneceu dos judeus."],[2,"E falou na presença de seus irmãos e do exército de Samaria, e disse: Que fazem estes judeus fracos? Acaso se deixará isto para eles? Sacrificarão? Acabarão num dia? Tornarão a vivificar as pedras dos montões do pó, sendo elas queimadas?"],[3,"E Tobias, o amonita, estava ao lado dele e disse: Ainda que edifiquem, se uma raposa subir, derrubará o seu muro de pedras."],[4,"Ouve, ó nosso Deus, que somos desprezados; e torna o seu opróbrio sobre a sua cabeça; e entrega-os por opróbrio numa terra de cativeiro;"],[5,"e não cubras a sua iniquidade, e o seu pecado não seja apagado de diante da tua face; porque te irritaram perante os edificadores."],[6,"Assim edificamos o muro, e todo o muro foi unido até à sua metade; porque o povo tinha disposição de trabalhar."],[7,"Mas aconteceu que, ouvindo Sambalate, e Tobias, e os árabes, e os amonitas, e os asdoditas, que os muros de Jerusalém iam sendo restaurados, e que as brechas começavam a ser tapadas, irou-se muito."],[8,"E todos eles conspiraram juntos para virem combater contra Jerusalém, e causar-lhe embaraço."],[9,"Mas nós oramos ao nosso Deus, e pusemos uma guarda para vigiá-los de dia e de noite, por causa deles."],[10,"E disse Judá: A força dos carregadores está fraca, e o entulho é muito; e nós não podemos edificar o muro."],[11,"E disseram os nossos adversários: Não saberão nem verão, até que entremos no meio deles, e os matemos, e façamos cessar a obra."],[12,"E aconteceu que, quando vieram os judeus que habitavam ao lado deles, disseram-nos dez vezes: De todos os lugares, donde tornardes a nós, eles sairão contra vós."],[13,"Portanto, pus nas partes inferiores do lugar, detrás do muro, nos lugares descobertos; eu pus o povo por famílias, com as suas espadas, as suas lanças e os seus arcos."],[14,"E olhei, e me levantei, e disse aos nobres, e aos magistrados, e ao restante do povo: Não os temais; lembrai-vos do Senhor, grande e tremendo, e batei-vos por vossos irmãos, vossos filhos e vossas filhas, vossas mulheres e vossas casas."],[15,"E aconteceu que, quando os nossos inimigos ouviram que o havíamos entendido, e que Deus havia frustrado o seu conselho, todos nós voltamos ao muro, cada um ao seu trabalho."],[16,"E aconteceu desde aquele dia em diante que a metade dos meus servos trabalhava na obra, e a outra metade tinha as lanças, e os escudos, e os arcos, e as couraças; e os príncipes estavam atrás de toda a casa de Judá."],[17,"Os que edificavam no muro, e os que carregavam cargas, com uma das mãos faziam a obra, e com a outra seguravam a arma."],[18,"E cada um dos edificadores tinha a espada cingida aos seus lombos, e assim edificavam; e aquele que tocava a buzina estava ao lado de mim."],[19,"E eu disse aos nobres, e aos magistrados, e ao restante do povo: A obra é grande e extensa, e nós estamos separados no muro, longe uns dos outros."],[20,"Em qualquer lugar onde ouvirdes o som da buzina, ajuntai-vos a nós; o nosso Deus pelejará por nós."],[21,"Assim fazíamos a obra, e a metade deles tinha as lanças, desde a subida da alvorada até às estrelas saírem."],[22,"Também naquele tempo disse ao povo: Cada um com o seu servo pernoite dentro de Jerusalém, para que de noite sejam guarda para nós, e de dia trabalhem."],[23,"E nem eu, nem meus irmãos, nem meus servos, nem os homens de guarda que me seguiam, tiramos as nossas vestes; cada um se punha com a sua arma à água."]],
+5: [[1,"Então houve um grande clamor do povo e de suas mulheres contra os seus irmãos judeus."],[2,"Porque havia os que diziam: Nós, nossos filhos e nossas filhas, somos muitos; por isso tomemos trigo, para comermos e vivermos."],[3,"E havia os que diziam: Nós empenhamos as nossas terras, e as nossas vinhas, e as nossas casas, para tomarmos trigo na fome."],[4,"Havia também os que diziam: Tomamos dinheiro emprestado para o tributo do rei, nossas terras e nossas vinhas."],[5,"Pois que a nossa carne é como a carne dos nossos irmãos, e os nossos filhos como os filhos deles; e eis que nós sujetamos nossos filhos e nossas filhas à servidão, e algumas das nossas filhas já estão sujeitas, e não temos poder em nossas mãos; porque as nossas terras e vinhas são de outros."],[6,"E eu me indignou muito, quando ouvi o seu clamor e estas palavras."],[7,"E o meu coração deliberou comigo; e repreendi aos nobres e aos magistrados, e disse-lhes: Vós exigis usura, cada um de seu irmão. E convoquei contra eles uma grande assembléia,"],[8,"e lhes disse: Nós, segundo a nossa possibilidade, remimos nossos irmãos judeus, que foram vendidos às nações; e vós ainda vendereis vossos irmãos, e eles serão vendidos a nós? Então calaram-se, e não acharam palavra."],[9,"Ainda disse: Não é bom o que fazeis; não deveis andar no temor do nosso Deus, para que os gentios nossos inimigos não nos vituperem?"],[10,"Também eu, meus irmãos e meus servos, lhes emprestamos dinheiro e trigo; peço-vos que lhes remitais esta dívida."],[11,"Restituí-lhes hoje, peço-vos, as suas terras, as suas vinhas, os seus olivedos e as suas casas; como também a centésima parte do dinheiro, e do trigo, e do vinho, e do azeite que lhes exigistes."],[12,"Então disseram: Restituiremos, e deles nada mais exigiremos; assim faremos como tu dizes. Então chamei os sacerdotes, e os fiz jurar que fariam conforme a esta promessa."],[13,"Também sacudi a minha roupa, e disse: Assim sacuda Deus de sua casa e de seu trabalho a todo o homem que não cumprir esta promessa; e assim seja sacudido e vazio. E toda a congregação disse: Amém. E louvaram ao Senhor; e o povo fez conforme a esta promessa."],[14,"Também desde o dia em que me ordenou o rei que fosse governador na terra de Judá, desde o ano vigésimo até ao ano trigésimo segundo do rei Artaxerxes, doze anos, eu e meus irmãos não comemos do pão do governador."],[15,"Mas os primeiros governadores que foram antes de mim agravaram o povo, e lhes tomaram de pão e de vinho, além de quarenta siclos de prata; e ainda os seus servos se assenhoreavam do povo; mas eu assim não fiz, por causa do temor de Deus."],[16,"Ainda trabalhei na obra deste muro; e terra não compramos; e todos os meus servos se ajuntaram ali para a obra."],[17,"Demais disso, eram à minha mesa cento e cinqüenta homens, judeus e magistrados; além dos que vinham a nós das nações que nos rodeavam."],[18,"E o que se preparava para cada dia era um boi e seis ovelhas escolhidas; também aves se me preparavam; e uma vez em dez dias vinhos em abundância de toda espécie; mas contudo, não demandei o pão do governador; porque a servidão era pesada sobre este povo."],[19,"Lembra-te de mim, meu Deus, para o bem, segundo tudo quanto fiz por este povo."]],
+6: [[1,"E aconteceu que, ouvindo Sambalate, e Tobias, e Gesém, o árabe, e os outros nossos inimigos, que eu tinha edificado o muro, e que nele não havia mais nenhuma brecha (ainda que até àquele tempo não tivesse posto as portas nos portais),"],[2,"mandaram Sambalate e Gesém dizer-me: Vem, e ajuntemo-nos juntos nas aldeias, no vale de Ono. Eles, porém, intentavam fazer-me mal."],[3,"E mandei mensageiros a eles, dizendo: Estou fazendo uma grande obra, e não posso descer; para quê cessaria a obra, deixando-a eu, e descendo a vós?"],[4,"E mandaram-me dizer isto quatro vezes, e eu lhes respondi da mesma maneira."],[5,"Então mandou Sambalate a mim o seu servo pela quinta vez, com uma carta aberta na sua mão,"],[6,"em que estava escrito: Ouviu-se entre as nações, e Gasmu o diz, que tu e os judeus intentais rebelar-vos; e por isso edificas o muro, e tu, segundo estas palavras, serás o seu rei."],[7,"E também puseste profetas que proclamem a teu respeito em Jerusalém, dizendo: Rei há em Judá. E agora estas palavras chegarão ao rei; vem, pois, e aconselhemo-nos juntos."],[8,"Então mandei dizer-lhe: Não foi feito o que dizes; tu o inventas no teu coração."],[9,"Porque todos eles nos queriam fazer temer, dizendo: As mãos deles se enfraquecerem da obra, e ela não se fará. Mas agora fortalece as minhas mãos."],[10,"E eu fui a casa de Semaías, filho de Delaías, filho de Meetabeel, que estava encerrado; e disse: Ajuntemo-nos na casa de Deus, dentro do templo, e fechemos as portas do templo; porque virão para te matar, e virão à noite matar-te."],[11,"Mas eu disse: Havia de fugir tal homem como eu? E quem, sendo como eu, entraria no templo, para viver? Não entrarei."],[12,"E conheci que não o enviara Deus, porém que pronunciou esta profecia contra mim porque Tobias e Sambalate o assalariaram."],[13,"Porque estava assalariado para que eu temesse, e assim fizesse e pecasse; e que lhes fosse por má renome, para me vituperarem."],[14,"Lembra-te, ó meu Deus, de Tobias e de Sambalate, segundo estas obras deles; como também da profetisa Noadias, e dos outros profetas que me quiseram fazer temer."],[15,"E o muro foi acabado no vigésimo e cinco dias do mês de Elul, em cinqüenta e dois dias."],[16,"E aconteceu que, ouvindo todos os nossos inimigos isso, temeram todas as nações que estavam em redor de nós; e abateram muito à sua própria vista; porque conheceram que esta obra foi feita pelo nosso Deus."],[17,"Também naqueles dias enviavam muitas cartas os nobres de Judá a Tobias, e as de Tobias vinham a eles."],[18,"Porque muitos em Judá eram ligados a ele por juramento; porque era genro de Secanias, filho de Arã, e Joanã, filho dele, havia tomado a filha de Mesulão, filho de Berequias."],[19,"Também falavam as suas boas obras perante mim, e as minhas palavras relatavam a ele. E Tobias enviava cartas para me fazer temer."]],
+7: [[1,"E aconteceu que, edificado o muro, e posto as portas, e designados os porteiros, e os cantores, e os levitas,"],[2,"ordenei a Hanani, meu irmão, e a Hananias, príncipe da fortaleza de Jerusalém (porque este era homem fiel, e temia a Deus mais do que muitos),"],[3,"e disse-lhes: Não se abram as portas de Jerusalém até que o sol esquente; e, estando eles de guarda, fechem-se as portas, e ponham-se os ferrolhos; e designem-se guardas dentre os moradores de Jerusalém, cada um no seu posto, e cada um defronte de sua casa."],[4,"Ora a cidade era espaçosa e grande, mas o povo era pouco dentro dela, e as casas não estavam edificadas."],[5,"E meu Deus me inspirou o coração para que eu ajuntasse os nobres, e os magistrados, e o povo, para que fossem contados por genealogia. E achei o livro da genealogia dos que subiram primeiro, e nele achei escrito:"],[6,"Estes são os filhos da província que subiram do cativeiro dos que foram transportados, os quais Nabucodonosor, rei de Babilônia, havia levado em cativeiro, e voltaram a Jerusalém e a Judá, cada um à sua cidade;"],[7,"os que vieram com Zorobabel: Jesua, Neemias, Azarias, Raamias, Naamani, Mordecai, Bilsã, Misperet, Bigvai, Neum, Baaná. O número dos homens do povo de Israel:"],[8,"Os filhos de Parós, dois mil, cento e setenta e dois."],[9,"Os filhos de Sefatias, trezentos e setenta e dois."],[10,"Os filhos de Ara, seiscentos e cinqüenta e dois."],[11,"Os filhos de Paate-Moabe, dos filhos de Jesua e de Joabe, dois mil e oitocentos e dezoito."],[12,"Os filhos de Elão, mil, duzentos e cinqüenta e quatro."],[13,"Os filhos de Zatu, oitocentos e quarenta e cinco."],[14,"Os filhos de Zacai, setecentos e sessenta."],[15,"Os filhos de Binui, seiscentos e quarenta e oito."],[16,"Os filhos de Bebai, seiscentos e vinte e oito."],[17,"Os filhos de Azgade, dois mil, trezentos e vinte e dois."],[18,"Os filhos de Adonicão, seiscentos e sessenta e sete."],[19,"Os filhos de Bigvai, dois mil e sessenta e sete."],[20,"Os filhos de Adim, seiscentos e cinqüenta e cinco."],[21,"Os filhos de Ater, de Ezequias, noventa e oito."],[22,"Os filhos de Hasum, trezentos e vinte e oito."],[23,"Os filhos de Bezai, trezentos e vinte e quatro."],[24,"Os filhos de Harife, cento e doze."],[25,"Os filhos de Gibeão, noventa e cinco."],[26,"Os homens de Belém e de Netofa, cento e oitenta e oito."],[27,"Os homens de Anatote, cento e vinte e oito."],[28,"Os homens de Bete-Azmavete, quarenta e dois."],[29,"Os homens de Quiriate-Jearim, Quefira e Beerote, setecentos e quarenta e três."],[30,"Os homens de Ramá e Geba, seiscentos e vinte e um."],[31,"Os homens de Micmás, cento e vinte e dois."],[32,"Os homens de Betel e Ai, cento e vinte e três."],[33,"Os homens do outro Nebo, cinqüenta e dois."],[34,"Os filhos do outro Elão, mil, duzentos e cinqüenta e quatro."],[35,"Os filhos de Harim, trezentos e vinte."],[36,"Os filhos de Jericó, trezentos e quarenta e cinco."],[37,"Os filhos de Lode, Hadide e Ono, setecentos e vinte e um."],[38,"Os filhos de Senaá, três mil e novecentos e trinta."]],
+8: [[1,"E, ajuntando-se todo o povo como um só homem, na praça que está diante da porta das Águas, disseram a Esdras, o escriba, que trouxesse o livro da lei de Moisés que o Senhor havia ordenado a Israel."],[2,"Então Esdras, o sacerdote, trouxe a lei perante a congregação, tanto de homens como de mulheres, e de todos os que podiam entender, no primeiro dia do sétimo mês."],[3,"E leu naquele livro, na praça que está diante da porta das Águas, desde a manhã até ao meio-dia, perante os homens e as mulheres e os que podiam entender; e os ouvidos de todo o povo estavam atentos ao livro da lei."],[4,"E Esdras, o escriba, estava sobre um púlpito de madeira, que tinham feito para isso; e ao lado dele estavam, à sua direita, Matitias, Sema, Anias, Urias, Hilquias e Maaséias; e à sua esquerda, Pedaías, Misael, Malquias, Hasum, Hasbadana, Zacarias e Mesulão."],[5,"E abriu Esdras o livro perante todo o povo (porque estava acima de todo o povo); e, quando o abriu, todo o povo se pôs em pé."],[6,"E Esdras louvou ao Senhor, ao grande Deus; e todo o povo respondeu: Amém, amém, levantando as suas mãos; e inclinaram-se, e adoraram ao Senhor, com os rostos em terra."],[7,"E Jesua, e Bani, e Serebias, Jamim, Acube, Sabetai, Hodias, Maaséias, Quelita, Azarias, Jozabade, Hanã, Pelaia, e os levitas, ensinavam o povo na lei; e o povo estava em pé no seu lugar."],[8,"E leram no livro, na lei de Deus, clara e distintamente, e davam o sentido, de maneira que entendessem o que era lido."],[9,"E Neemias, que era o governador, e Esdras, o sacerdote, o escriba, e os levitas que ensinavam o povo, disseram a todo o povo: Este dia é santo ao Senhor vosso Deus; não choreis, nem vos lamenteis. Porque todo o povo chorava, quando ouviu as palavras da lei."],[10,"E disse-lhes: Ide, comei as gorduras, e bebei o vinho doce, e mandai porções aos que nada têm preparado; porque este dia é santo ao nosso Senhor; e não vos entristeçais, porque a alegria do Senhor é a vossa força."],[11,"E os levitas fizeram calar todo o povo, dizendo: Calai-vos, porque o dia é santo; e não vos entristeçais."],[12,"E todo o povo foi comer, e beber, e mandar porções, e fazer grande alegria; porque entenderam as palavras que lhes foram declaradas."],[13,"E no segundo dia se ajuntaram os cabeças das casas paternas de todo o povo, os sacerdotes, e os levitas, a Esdras o escriba, para entenderem as palavras da lei."],[14,"E acharam escrito na lei que o Senhor havia ordenado por mão de Moisés, que os filhos de Israel habitassem em tendas, na festa do sétimo mês;"],[15,"e que fizessem ouvir e publicassem em todas as suas cidades e em Jerusalém, dizendo: Saí ao monte, e trazei ramos de oliveira, e ramos de pinheiro, e ramos de mirto, e ramos de palmeiras, e ramos de árvore frondosa, para fazerdes tendas, como está escrito."],[16,"E saiu o povo, e trouxeram ramos, e fizeram tendas para si, cada um sobre o seu eirado, e nos seus pátios, e nos pátios da casa de Deus, e na praça da porta das Águas, e na praça da porta de Efraim."],[17,"E toda a congregação dos que voltaram do cativeiro fizeram tendas, e habitaram nas tendas; porque desde os dias de Josué, filho de Nun, até àquele dia, não tinham feito assim os filhos de Israel. E houve muito grande alegria."],[18,"E leu-se no livro da lei de Deus dia por dia, desde o primeiro dia até ao último dia; e celebraram a festa sete dias; e no oitavo dia houve assembléia solene, conforme ao rito."]],
+9: [[1,"E no vigésimo e quatro dias deste mês se ajuntaram os filhos de Israel em jejum, e em sacos, e com terra sobre si."],[2,"E apartou-se a semente de Israel de todos os estrangeiros; e se puseram em pé, e confessaram os seus pecados, e as iniqüidades de seus pais."],[3,"E se levantaram no seu lugar, e se leu no livro da lei do Senhor seu Deus uma quarta parte do dia; e outra quarta parte se confessavam e adoravam ao Senhor seu Deus."],[4,"Depois levantaram-se na escada dos levitas, Jesua, e Bani, Cadmiel, Sebânias, Buni, Serebias, Bani e Quenani, e clamaram em alta voz ao Senhor seu Deus."],[5,"E disseram os levitas, Jesua, e Cadmiel, Bani, Hasabnias, Serebias, Hodias, Sebânias e Petaías: Levantai-vos, bendizei ao Senhor vosso Deus, de eternidade em eternidade; e bendito seja o teu nome glorioso, que é exaltado sobre toda a bênção e louvor."],[6,"Só tu és o Senhor; tu fizeste os céus, e os céus dos céus, com todo o seu exército, a terra, e tudo quanto há nela, os mares e tudo quanto há neles; e tu conservas tudo isso com vida; e o exército dos céus te adora."],[7,"Tu és o Senhor Deus, que elegeste Abrão, e o tiraste de Ur dos caldeus, e lhe puseste o nome de Abraão."],[8,"E achaste fiel o seu coração perante ti, e fizeste aliança com ele para lhe dar a terra dos cananeus, dos heteus, dos amorreus, dos ferezeus, dos jebuseus, e dos girgaseus, para a dar à sua descendência; e cumpriste as tuas palavras, porque és justo."],[9,"E viste a miséria de nossos pais no Egito, e ouviste o seu clamor junto ao Mar Vermelho."],[10,"E fizeste sinais e maravilhas contra Faraó, e contra todos os seus servos, e contra todo o povo da sua terra; porque soubeste que se houveram soberbamente contra eles; e fizeste-te nome, como hoje se vê."],[11,"E fendeste o mar diante deles, e passaram pelo meio do mar em seco; e os seus perseguidores lançaste nas profundezas, como uma pedra nas grandes águas."],[12,"E com uma coluna de nuvem os guiaste de dia, e com uma coluna de fogo de noite, para lhes alumiar o caminho por onde deviam andar."],[13,"E desceste sobre o monte Sinai, e falaste com eles dos céus, e lhes deste juízos retos e leis verdadeiras, estatutos e mandamentos bons."],[14,"E fizeste-lhes saber o teu santo sábado, e lhes prescreveste mandamentos, e estatutos, e lei, pela mão de Moisés, teu servo."],[15,"E lhes deste pão dos céus para a sua fome, e lhes tiraste água da penha para a sua sede; e lhes disseste que entrassem a possuir a terra, sobre a qual juraste com a tua mão que lha darias."],[16,"Mas eles e nossos pais se houveram soberbamente, e endureceram a sua cerviz, e não ouviram os teus mandamentos,"],[17,"e recusaram obedecer, e não se lembraram das tuas maravilhas que fizeste com eles; antes endureceram a sua cerviz, e em sua rebeldia propuseram voltar à sua servidão. Mas tu és um Deus de perdão, clemente, e misericordioso, tardio em irar-se, e grande em benignidade, e não os abandonaste."],[18,"E ainda quando fizeram para si o bezerro de fundição, e disseram: Este é o teu Deus, que te tirou do Egito; e cometeram grandes blasfêmias;"],[19,"tu, segundo as tuas muitas misericórdias, não os abandonaste no deserto; a coluna de nuvem não se apartou deles de dia, para os guiar pelo caminho; nem a coluna de fogo de noite, para lhes alumiar o caminho por onde deviam andar."],[20,"E deste o teu Espírito Santo para os ensinar, e não retiveste o teu maná da sua boca, e lhes deste água para a sua sede."],[21,"Quarenta anos os sustentaste no deserto; nada lhes faltou; as suas vestes não se envelheceram, e os seus pés não se incharam."],[22,"E lhes deste reinos e povos, e os repartiste por cantos; e possuíram a terra de Siom, e a terra do rei de Hesbom, e a terra de Ogue, rei de Basã."]],
+10: [[1,"E os que firmaram o acordo foram: Neemias, o governador, filho de Hacalias, e Zidquias,"],[2,"Seraías, Azarias, Jeremias,"],[3,"Pasur, Amarias, Malquias,"],[4,"Hatus, Sebânias, Maluco,"],[5,"Harim, Meremote, Obadias,"],[6,"Daniel, Ginetom, Baruco,"],[7,"Mesulão, Abias, Miamim,"],[8,"Maaziás, Bilgai e Semaías; estes eram os sacerdotes."],[9,"E os levitas: Jesua, filho de Azanias, Binui dos filhos de Henadade, Cadmiel;"],[10,"e seus irmãos: Sebânias, Hodias, Quelita, Pelaia, Hanã,"],[11,"Mica, Reobe, Hasabias,"],[12,"Zacur, Serebias, Sebânias,"],[13,"Hodias, Bani e Beninu."],[14,"Os cabeças do povo: Parós, Paate-Moabe, Elão, Zatu, Bani,"],[15,"Buni, Azgade, Bebai,"],[16,"Adonias, Bigvai, Adim,"],[17,"Ater, Ezequias, Azur,"],[18,"Hodias, Hasum, Bezai,"],[19,"Harife, Anatote, Nebai,"],[20,"Magpias, Mesulão, Hezir,"],[21,"Mesezabeel, Zadoque, Jadua,"],[22,"Pelatias, Hanã, Anaia,"],[23,"Oseias, Hananias, Hassube,"],[24,"Aloes, Piea, Soboque,"],[25,"Reum, Hasabna, Maaséias,"],[26,"e Aías, Hanã, Anã,"],[27,"Maluco, Harim e Baaná."],[28,"E o restante do povo, os sacerdotes, os levitas, os porteiros, os cantores, os netineus, e todos os que se haviam separado dos povos das terras para a lei de Deus, suas mulheres, seus filhos e suas filhas, todos os que tinham conhecimento e entendimento,"],[29,"se chegaram a seus irmãos e aos seus nobres, e entraram em juramento e maldição, para andarem na lei de Deus, que foi dada pela mão de Moisés, servo de Deus, e para guardarem e cumprirem todos os mandamentos do Senhor nosso Senhor, e os seus juízos e os seus estatutos;"],[30,"e que não daríamos as nossas filhas aos povos da terra, nem tomaríamos as suas filhas para nossos filhos."],[31,"E que, se os povos da terra trouxessem mercadorias ou qualquer mantimento ao sábado para vender, nada lhes compraríamos no sábado, nem em dia santo; e que no sétimo ano deixaríamos a terra descansar, e relaxaríamos toda a dívida."],[32,"E pusemos para nós ordenanças, impondo-nos a terça parte de um siclo por ano para o serviço da casa do nosso Deus;"],[33,"para o pão da proposição, e para o contínuo mantimento de cereais, e para o holocausto contínuo, dos sábados, das luas novas, para as festas solenizadas, e para as coisas santas, e para os sacrifícios pelo pecado para fazer expiação por Israel, e para toda a obra da casa do nosso Deus."],[34,"E também lançamos sortes entre os sacerdotes, os levitas e o povo, para a oferta da lenha, que se havia de trazer à casa do nosso Deus, segundo as casas de nossos pais, em tempos determinados, de ano em ano, para queimar sobre o altar do Senhor nosso Deus, como está escrito na lei."],[35,"E para trazermos as primícias das nossas terras, e as primícias de todo o fruto de todas as árvores, de ano em ano, à casa do Senhor;"],[36,"como também os primogênitos dos nossos filhos e dos nossos animais, como está escrito na lei, e os primogênitos das nossas vacas e das nossas ovelhas, para os trazermos à casa do nosso Deus, para os sacerdotes que ministram na casa do nosso Deus;"],[37,"e que traríamos as primícias das nossas massas, e as nossas ofertas alçadas, e o fruto de todas as árvores, o vinho e o azeite, aos sacerdotes, para as câmaras da casa do nosso Deus; e o dízimo da nossa terra, aos levitas; e que os levitas receberiam os dízimos em todas as cidades da nossa lavoura."],[38,"E que o sacerdote, filho de Arão, estaria com os levitas quando os levitas recebessem os dízimos; e que os levitas trariam o dízimo dos dízimos à casa do nosso Deus, às câmaras da casa do tesouro."],[39,"Porque os filhos de Israel e os filhos de Levi trarão a oferta do trigo, do vinho e do azeite para as câmaras onde estão os utensílios do santuário, e os sacerdotes que ministram, e os porteiros, e os cantores; e não deixaremos a casa do nosso Deus."]],
+11: [[1,"E os príncipes do povo habitaram em Jerusalém; mas o restante do povo lançou sortes para trazer um de cada dez para habitar em Jerusalém, a cidade santa, e as outras nove partes nas outras cidades."],[2,"E o povo abençoou a todos os homens que voluntariamente se ofereceram para habitar em Jerusalém."],[3,"Estes são os cabeças da província que habitaram em Jerusalém; mas nas cidades de Judá habitaram, cada um na sua possessão, nas suas cidades, Israel, os sacerdotes, os levitas, e os netineus, e os filhos dos servos de Salomão."],[4,"E em Jerusalém habitaram alguns dos filhos de Judá e dos filhos de Benjamim. Dos filhos de Judá: Ataías, filho de Uzias, filho de Zacarias, filho de Amarias, filho de Sefatias, filho de Mahalaleel, dos filhos de Perez;"],[5,"e Maaséias, filho de Baruco, filho de Col-Hoze, filho de Hazaías, filho de Adaías, filho de Joiaribe, filho de Zacarias, filho do silonita."],[6,"Todos os filhos de Perez que habitaram em Jerusalém foram quatrocentos e sessenta e oito homens valentes."],[7,"E estes são os filhos de Benjamim: Salu, filho de Mesulão, filho de Joede, filho de Pedaías, filho de Colaías, filho de Maaséias, filho de Itiel, filho de Jesaías."],[8,"E depois dele Gabai, Salai, novecentos e vinte e oito."],[9,"E Joel, filho de Zicri, era o seu superintendente; e Judá, filho de Hassenuá, era o segundo sobre a cidade."],[10,"Dos sacerdotes: Jedaías, filho de Joiaribe, Jaquim,"],[11,"Seraías, filho de Hilquias, filho de Mesulão, filho de Zadoque, filho de Meraiote, filho de Aitube, príncipe da casa de Deus;"],[12,"e seus irmãos que faziam a obra da casa, oitocentos e vinte e dois; e Adaías, filho de Jeroão, filho de Pelalias, filho de Amzi, filho de Zacarias, filho de Pasur, filho de Malquias,"],[13,"e seus irmãos, cabeças das casas paternas, duzentos e quarenta e dois; e Amasai, filho de Azareel, filho de Azai, filho de Mesilemote, filho de Imer,"],[14,"e seus irmãos, homens valentes, cento e vinte e oito; e o seu superintendente era Zabdiel, filho de Haggedolim."],[15,"E dos levitas: Semaías, filho de Hassube, filho de Azricão, filho de Hasabias, filho de Buni;"],[16,"e Sabetai e Jozabade, dos cabeças dos levitas, que tinham o encargo das obras externas da casa de Deus;"],[17,"e Matanias, filho de Mica, filho de Zabdi, filho de Asafe, que era o cabeça do coro de louvor à oração, e Bacbuquias, o segundo entre seus irmãos, e Abda, filho de Samua, filho de Galal, filho de Jedutum."],[18,"Todos os levitas na cidade santa foram duzentos e oitenta e quatro."],[19,"E os porteiros, Acube, Talmom, e seus irmãos, que guardavam as portas, cento e setenta e dois."]],
+12: [[1,"E estes são os sacerdotes e os levitas que subiram com Zorobabel, filho de Salatiel, e com Jesua: Seraías, Jeremias, Esdras,"],[2,"Amarias, Maluco, Hatus,"],[3,"Secanias, Reum, Meremote,"],[4,"Ido, Ginetoi, Abias,"],[5,"Miamim, Moadias, Bilga,"],[6,"Semaías, Joiaribe, Jedaías,"],[7,"Salu, Amoce, Hilquias, Jedaías. Estes eram os cabeças dos sacerdotes e de seus irmãos nos dias de Jesua."],[8,"E os levitas: Jesua, Binui, Cadmiel, Serebias, Judá e Matanias, que com seus irmãos presidia os cânticos de ações de graças."],[9,"E Bacbuquias e Uni, seus irmãos, estavam diante deles nos turnos de serviço."],[10,"E Jesua gerou a Joiaquim; e Joiaquim gerou a Eliasibe; e Eliasibe gerou a Joiada;"],[11,"e Joiada gerou a Jônatas; e Jônatas gerou a Jadua."],[12,"E nos dias de Joiaquim foram cabeças dos sacerdotes e das casas paternas: da casa de Seraías, Meraías; de Jeremias, Hananias;"],[13,"de Esdras, Mesulão; de Amarias, Joanã;"],[14,"de Meluco, Jônatas; de Sebânias, José;"],[15,"de Harim, Adna; de Meraiote, Helcai;"],[16,"de Ido, Zacarias; de Ginetom, Mesulão;"],[17,"de Abias, Zicri; de Miniamim; de Moadias, Piltai;"],[18,"de Bilga, Samua; de Semaías, Jônatas;"],[19,"de Joiaribe, Matenai; de Jedaías, Uzi;"],[20,"de Salai, Calai; de Amoce, Éber;"],[21,"de Hilquias, Hasabias; de Jedaías, Netaneel."],[22,"Os levitas nos dias de Eliasibe, Joiada, Joanã e Jadua foram escritos como cabeças das casas paternas; como também os sacerdotes, até ao reinado de Dario, o persa."],[23,"Os filhos de Levi, cabeças das casas paternas, foram escritos no livro das crônicas até aos dias de Joanã, filho de Eliasibe."],[24,"E os cabeças dos levitas: Hasabias, Serebias, e Jesua, filho de Cadmiel, e seus irmãos diante deles, para louvar e dar graças, conforme o mandamento de Davi, homem de Deus, turma por turma."],[25,"Matanias, e Bacbuquias, Obadias, Mesulão, Talmom e Acube eram porteiros, guardas nos depósitos das portas."],[26,"Estes foram nos dias de Joiaquim, filho de Jesua, filho de Josedaque, e nos dias do governador Neemias e de Esdras, o sacerdote e escriba."],[27,"E na dedicação do muro de Jerusalém buscaram os levitas de todos os seus lugares para os trazerem a Jerusalém, para celebrar a dedicação com alegria, e com ações de graças, e com cânticos, com címbalos, alaúdes e harpas."],[28,"E se ajuntaram os filhos dos cantores, assim da campina ao redor de Jerusalém, como das aldeias dos netofatitas,"],[29,"e de Bete-Gilgal, e dos campos de Geba e de Azmavete; porque os cantores tinham edificado aldeias para si em redor de Jerusalém."],[30,"E os sacerdotes e levitas se purificaram; e purificaram o povo, e as portas, e o muro."],[31,"E fiz subir os príncipes de Judá sobre o muro, e ordenei dois grandes coros de ação de graças e procissões: o primeiro foi para a direita sobre o muro para a porta do Monturo."],[32,"E ia após eles Oseias, e a metade dos príncipes de Judá,"],[33,"e Azarias, Esdras, e Mesulão,"],[34,"Judá, e Benjamim, e Semaías, e Jeremias,"],[35,"e alguns dos filhos dos sacerdotes com trombetas; e Zacarias, filho de Jônatas, filho de Semaías, filho de Matanias, filho de Micaías, filho de Zacur, filho de Asafe;"],[36,"e seus irmãos, Semaías, e Azareel, Milalai, Gilalai, Maaí, Netaneel, e Judá, Hanani, com os instrumentos musicais de Davi, homem de Deus; e Esdras o escriba estava diante deles."],[37,"E foram à porta da Fonte, e subiram pelas escadas da cidade de Davi, onde o muro vai subindo sobre a casa de Davi, até à porta das Águas para o oriente."],[38,"E o segundo coro de ação de graças foi o que ficou em pé, ao qual eu segui, e a metade do povo sobre o muro, desde a torre dos Fornos até ao muro largo;"],[39,"e de sobre a porta de Efraim, e sobre a porta da Cidade Velha, e sobre a porta dos Peixes, e a torre de Hananeel, e a torre de Meá, até à porta das Ovelhas; e pararam na porta da Prisão."],[40,"Depois ficaram ambos os coros de ação de graças na casa de Deus, e eu, e a metade dos magistrados comigo,"],[41,"e os sacerdotes Eliaquim, Maaséias, Miniamim, Micaías, Elioenai, Zacarias e Hananias, com trombetas;"],[42,"e Maaséias, e Semaías, e Eleazar, e Uzi, e Joanã, e Malquias, e Elão, e Ézer. E os cantores cantaram alto; e Jezraías era o seu inspetor."],[43,"E naquele dia sacrificaram grandes sacrifícios, e se alegraram; porque Deus os tinha alegrado com grande alegria; e também as mulheres e as crianças se alegraram; e o júbilo de Jerusalém foi ouvido até longe."]],
+13: [[1,"Naquele dia leu-se no livro de Moisés, aos ouvidos do povo; e nele achou-se escrito que o amonita e o moabita não deviam entrar na congregação de Deus para sempre;"],[2,"porque não saíram a receber os filhos de Israel com pão e com água, e assalariaram contra eles a Balaão para os amaldiçoar; mas o nosso Deus converteu a maldição em bênção."],[3,"E aconteceu que, ouvindo eles a lei, separaram de Israel toda a mistura estrangeira."],[4,"E antes disto, Eliasibe, o sacerdote, que tinha o cargo das câmaras da casa do nosso Deus, e que era parente de Tobias,"],[5,"tinha-lhe feito uma grande câmara, onde antes guardavam as ofertas de cereais, o incenso, os utensílios, e os dízimos do trigo, do vinho e do azeite (que eram prescritos para os levitas, e os cantores, e os porteiros), e as ofertas alçadas para os sacerdotes."],[6,"Mas em todo este tempo eu não estava em Jerusalém; porque no ano trigésimo segundo de Artaxerxes, rei de Babilônia, eu voltara ao rei; e após algum tempo pedi licença ao rei,"],[7,"e vim a Jerusalém, e entendi o mal que Eliasibe fizera a favor de Tobias, preparando-lhe uma câmara nos átrios da casa de Deus."],[8,"E foi-me muito mal; pelo que lancei fora da câmara todos os móveis da casa de Tobias."],[9,"Então disse que purificassem as câmaras; e tornei a trazer para lá os utensílios da casa de Deus, a oferta de cereais e o incenso."],[10,"Também soube que as porções dos levitas não tinham sido dadas, e que os levitas e cantores que faziam o serviço tinham fugido, cada um para o seu campo."],[11,"Então contendi com os magistrados e disse: Por que está a casa de Deus abandonada? E os ajuntei, e os pus no seu lugar."],[12,"Então todo o Judá trouxe o dízimo do trigo, do vinho e do azeite aos depósitos."],[13,"E pus por tesoureiros sobre os depósitos a Selemias, o sacerdote, e a Zadoque, o escriba, e a Pedaías dos levitas; e ao lado deles a Hanã, filho de Zacur, filho de Matanias; porque eram tidos por fiéis; e o cargo deles era repartir aos seus irmãos."],[14,"Lembra-te de mim, ó meu Deus, por isso, e não apagues as minhas boas obras que fiz para a casa do meu Deus, e para as suas ordenanças."],[15,"Naqueles dias vi em Judá os que pisavam lagares no sábado, e os que transportavam feixes, e os que carregavam sobre os jumentos vinho, uvas, figos, e toda a carga, e os que traziam à Jerusalém no dia do sábado; e protestei contra eles no dia em que vendiam mantimentos."],[16,"E ali habitavam uns de Tiro, que traziam peixe e toda mercadoria, e vendiam no sábado aos filhos de Judá, e em Jerusalém."],[17,"Então contendi com os nobres de Judá e disse-lhes: Que mau negócio é este que fazeis, profanando o dia do sábado?"],[18,"Não fizeram assim vossos pais, e não trouxe o nosso Deus sobre nós todo este mal, e sobre esta cidade? E vós tornais a trazer mais ira sobre Israel, profanando o sábado."],[19,"E aconteceu que, quando as portas de Jerusalém estavam para ser fechadas antes do sábado, e quando escurecia, mandei que se fechassem as portas, e disse que não as abrissem até depois do sábado; e pus às portas alguns dos meus servos, para que nenhuma carga entrasse no dia do sábado."],[20,"Então os mercadores e os vendedores de toda a mercadoria passaram a noite fora de Jerusalém uma vez e outra."],[21,"Então protestei contra eles, e disse-lhes: Por que pernoitais em frente do muro? Se o tornardes a fazer, lançarei mão de vós. Desde então não vieram no sábado."],[22,"E ordenei aos levitas que se purificassem e viessem guardar as portas para santificar o dia do sábado. Lembra-te de mim também por isso, ó meu Deus, e tem misericórdia de mim segundo a grandeza da tua benignidade."],[23,"Vi também naqueles dias judeus que tinham casado com mulheres de Asdode, de Amom e de Moabe."],[24,"E os seus filhos falavam metade em língua de Asdode, e não sabiam falar em judaico, segundo a língua de cada povo."],[25,"E contendi com eles, e os amaldiçoei, e espanquei alguns deles, e lhes arranquei os cabelos, e os fiz jurar por Deus, dizendo: Não dareis as vossas filhas a seus filhos, nem tomareis as suas filhas para vossos filhos, nem para vós mesmos."],[26,"Não pecou Salomão, rei de Israel, por causa destas coisas? Não havia entre muitas nações rei como ele; e era amado de seu Deus, e Deus o pôs rei sobre todo o Israel; contudo, as mulheres estrangeiras o fizeram pecar."],[27,"E também nós havemos de ouvir de vós todo este grande mal, transgredindo contra o nosso Deus, casando com mulheres estrangeiras?"],[28,"E um dos filhos de Joiada, filho de Eliasibe, o sumo sacerdote, era genro de Sambalate, o horonita; pelo que o afastei de mim."],[29,"Lembra-te deles, ó meu Deus, porque contaminaram o sacerdócio, e o pacto do sacerdócio e dos levitas."],[30,"Assim os limpei de tudo o que era estrangeiro, e pus as ordens para os sacerdotes e levitas, cada um no seu serviço;"],[31,"e para a oferta da lenha a tempos determinados, e para as primícias. Lembra-te de mim, ó meu Deus, para o bem."]]
+};
+
+let modalCapAtual = null;
+
+function abrirModal(n) {
+  modalCapAtual = n;
+  document.getElementById('modal-titulo').textContent = 'Neemias ' + n;
+  const versiculos = acf[n] || [];
+  document.getElementById('modal-versiculos').innerHTML = versiculos
+    .map(([num, txt]) => `<span class="vnum">${num}</span>${txt} `)
+    .join('');
+  // Ajustar botão conforme estado
+  const btnLido = document.getElementById('modal-btn-lido');
+  if (chapsDone.has(n)) {
+    btnLido.textContent = '✓ Capítulo já lido — toque para desmarcar';
+    btnLido.style.background = '#0f2a1a';
+    btnLido.style.color = '#4a8060';
+  } else {
+    btnLido.textContent = '✓ Terminei de ler este capítulo';
+    btnLido.style.background = '';
+    btnLido.style.color = '';
+  }
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('modal-overlay').scrollTop = 0;
+}
+
+function fecharModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function marcarLidoDoModal() {
+  const n = modalCapAtual;
+  if (!n) return;
+  const pill = document.querySelector(`.chap-pill[data-cap="${n}"]`);
+  if (chapsDone.has(n)) {
+    // Desmarcar
+    chapsDone.delete(n);
+    chapsReading.delete(n);
+    if (pill) { pill.classList.remove('read','reading'); }
+    document.getElementById('modal-btn-lido').textContent = '✓ Terminei de ler este capítulo';
+    document.getElementById('modal-btn-lido').style.background = '';
+    document.getElementById('modal-btn-lido').style.color = '';
+    showToast('Capítulo desmarcado');
+  } else {
+    // Marcar como lido
+    chapsDone.add(n);
+    chapsReading.delete(n);
+    if (pill) { pill.classList.remove('reading'); pill.classList.add('read'); }
+    document.getElementById('modal-btn-lido').textContent = '✓ Capítulo já lido — toque para desmarcar';
+    document.getElementById('modal-btn-lido').style.background = '#0f2a1a';
+    document.getElementById('modal-btn-lido').style.color = '#4a8060';
+    showToast('📖 Capítulo lido e salvo!');
+    setTimeout(fecharModal, 1000);
+  }
+  document.getElementById('stat-chap').textContent = chapsDone.size;
+  syncState();
+  calcProgress();
+}
+
+const pillars = [
+  { name: "Oração", desc: "Fala com Deus antes de agir — Ne 1:4" },
+  { name: "Coragem", desc: "Age mesmo com medo — Ne 2:1–5" },
+  { name: "Organização", desc: "Divida a missão em partes — Ne 3" },
+  { name: "Perseverança", desc: "Não pare diante da crítica — Ne 4:6" },
+  { name: "Justiça", desc: "Cuide dos mais vulneráveis — Ne 5" },
+  { name: "Identidade", desc: "Saiba quem você é — Ne 6:11" },
+  { name: "Celebração", desc: "Comemore cada vitória — Ne 12:43" }
+];
+
+const challenges = [
+  "Escreva uma oração como a de Neemias (cap. 1): confesse, agradeça e peça um coração renovado.",
+  "Identifique um 'muro quebrado' na sua vida. Qual é o primeiro tijolo que você pode colocar hoje?",
+  "Escolha alguém para ser seu parceiro de jornada — como Neemias dividiu o trabalho (cap. 3).",
+  "Há alguma voz que tenta te desanimar? Ore contra ela e leia Neemias 4:14.",
+  "Pratique um ato de justiça hoje. Ajude alguém sem esperar retorno — Ne cap. 5.",
+  "Leia Neemias 8:10 em voz alta 3 vezes. Deixe a alegria do Senhor ser sua força.",
+  "Compartilhe com alguém o que Deus está reconstruindo na sua vida."
+];
+
+const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const dayIcons = ['ti-sun','ti-book','ti-heart','ti-flame','ti-star','ti-leaf','ti-crown'];
+
+// ESTADO — carregado do localStorage se existir
+let state = loadState();
+
+function defaultState() {
+  return {
+    pillarsDone: [],
+    chapsDone: [],
+    chapsReading: [],
+    oracaoDays: [],
+    challengeIdx: 0,
+    challengesDone: 0,
+    savedWeek: new Date().getFullYear() + '-' + getWeekNumber()
+  };
+}
+
+function getWeekNumber() {
+  const d = new Date();
+  const onejan = new Date(d.getFullYear(), 0, 1);
+  return Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return defaultState();
+    const s = JSON.parse(raw);
+    // Resetar dias de oração se for semana nova
+    const currentWeek = new Date().getFullYear() + '-' + getWeekNumber();
+    if (s.savedWeek !== currentWeek) {
+      s.oracaoDays = [];
+      s.savedWeek = currentWeek;
+    }
+    return s;
+  } catch(e) {
+    return defaultState();
+  }
+}
+
+function saveState() {
+  state.savedWeek = new Date().getFullYear() + '-' + getWeekNumber();
+  localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+}
+
+// Conjuntos reativos
+let pillarsDone = new Set(state.pillarsDone);
+let chapsDone = new Set(state.chapsDone);
+let chapsReading = new Set(state.chapsReading);
+let oracaoDays = new Set(state.oracaoDays);
+let challengeIdx = state.challengeIdx;
+let challengesDone = state.challengesDone;
+
+function syncState() {
+  state.pillarsDone = [...pillarsDone];
+  state.chapsDone = [...chapsDone];
+  state.chapsReading = [...chapsReading];
+  state.oracaoDays = [...oracaoDays];
+  state.challengeIdx = challengeIdx;
+  state.challengesDone = challengesDone;
+  saveState();
+}
+
+const progress = { oracao: 0, estudo: 0, comunhao: 0, servico: 0 };
+
+function calcProgress() {
+  progress.oracao  = oracaoDays.size   === 0 ? 0 : Math.min(100, Math.round((oracaoDays.size / 7) * 100));
+  progress.estudo  = chapsDone.size    === 0 ? 0 : Math.min(100, Math.round((chapsDone.size / 13) * 100));
+  progress.comunhao = (pillarsDone.size === 0 && challengesDone === 0) ? 0 : Math.min(100, Math.round((pillarsDone.size / 7) * 80 + challengesDone * 5));
+  progress.servico  = (pillarsDone.size === 0 && challengesDone === 0) ? 0 : Math.min(100, Math.round((pillarsDone.size / 7) * 60 + challengesDone * 6));
+  renderProgress();
+}
+
+const barDefs = [
+  { key: 'oracao', name: 'Vida de oração', cls: 'fill-gold', hint: 'Marque os dias que você orou acima' },
+  { key: 'estudo', name: 'Estudo da palavra', cls: 'fill-blue', hint: 'Marque os capítulos lidos abaixo' },
+  { key: 'comunhao', name: 'Comunhão com outros', cls: 'fill-green', hint: 'Conquiste pilares e complete desafios' },
+  { key: 'servico', name: 'Serviço ao próximo', cls: 'fill-coral', hint: 'Conquiste pilares e complete desafios' }
+];
+
+function buildProgressBars() {
+  const wrap = document.getElementById('progress-bars');
+  wrap.innerHTML = barDefs.map(b => `
+    <div class="progress-section">
+      <div class="progress-header">
+        <span class="progress-name">${b.name}</span>
+        <span class="progress-pct" id="pct-${b.key}">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill ${b.cls}" id="bar-${b.key}" style="width:0%"></div>
+      </div>
+      <p class="progress-hint">${b.hint}</p>
+    </div>`).join('');
+}
+
+function renderProgress() {
+  barDefs.forEach(b => {
+    const pct = progress[b.key];
+    const pctEl = document.getElementById('pct-' + b.key);
+    const barEl = document.getElementById('bar-' + b.key);
+    if (pctEl) pctEl.textContent = pct + '%';
+    if (barEl) barEl.style.width = pct + '%';
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function buildWeek() {
+  const grid = document.getElementById('week-grid');
+  const today = new Date().getDay();
+  grid.innerHTML = days.map((d, i) => `
+    <div class="day-dot ${oracaoDays.has(i) ? 'active' : ''} ${i === today ? 'today' : ''}" onclick="toggleDay(this, ${i})">
+      <span class="day-label">${d}</span>
+      <i class="ti ${dayIcons[i]} day-icon"></i>
+    </div>`).join('');
+}
+
+function toggleDay(el, i) {
+  if (oracaoDays.has(i)) {
+    oracaoDays.delete(i);
+    el.classList.remove('active');
+  } else {
+    oracaoDays.add(i);
+    el.classList.add('active');
+    showToast('🙏 Dia de oração salvo!');
+  }
+  document.getElementById('stat-oracao').textContent = oracaoDays.size;
+  syncState();
+  calcProgress();
+}
+
+function buildPillars() {
+  const list = document.getElementById('pillar-list');
+  list.innerHTML = pillars.map((p, i) => `
+    <li class="pillar-item ${pillarsDone.has(i) ? 'done' : ''}" onclick="togglePillar(this, ${i})">
+      <span class="pillar-num">0${i+1}</span>
+      <div>
+        <p class="pillar-name">${p.name}</p>
+        <p class="pillar-desc">${p.desc}</p>
+      </div>
+      <div class="pillar-check"><i class="ti ti-check"></i></div>
+    </li>`).join('');
+}
+
+function togglePillar(el, i) {
+  if (pillarsDone.has(i)) {
+    pillarsDone.delete(i);
+    el.classList.remove('done');
+  } else {
+    pillarsDone.add(i);
+    el.classList.add('done');
+    showToast('🏆 Pilar conquistado e salvo!');
+  }
+  document.getElementById('stat-done').textContent = pillarsDone.size;
+  syncState();
+  calcProgress();
+}
+
+function buildChapters() {
+  const row = document.getElementById('chap-row');
+  row.innerHTML = Array.from({length: 13}, (_, i) => {
+    const n = i + 1;
+    const cls = chapsDone.has(n) ? 'read' : chapsReading.has(n) ? 'reading' : '';
+    return `<span class="chap-pill ${cls}" data-cap="${n}" onclick="abrirModal(${n})">Cap. ${n}</span>`;
+  }).join('');
+}
+
+function toggleChap(el, n) {
+  if (el.classList.contains('read')) {
+    el.classList.remove('read');
+    chapsDone.delete(n);
+    chapsReading.delete(n);
+  } else if (el.classList.contains('reading')) {
+    el.classList.remove('reading');
+    el.classList.add('read');
+    chapsReading.delete(n);
+    chapsDone.add(n);
+    showToast('📖 Capítulo lido e salvo!');
+  } else {
+    el.classList.add('reading');
+    chapsReading.add(n);
+    showToast('📌 Marcado como lendo...');
+  }
+  document.getElementById('stat-chap').textContent = chapsDone.size;
+  syncState();
+  calcProgress();
+}
+
+function nextChallenge() {
+  challengeIdx = (challengeIdx + 1) % challenges.length;
+  challengesDone = Math.min(challengesDone + 1, 7);
+  document.getElementById('challenge-text').textContent = challenges[challengeIdx];
+  document.getElementById('challenge-num').textContent = `Desafio ${challengeIdx + 1} de 7`;
+  showToast('🔥 Desafio avançado e salvo!');
+  syncState();
+  calcProgress();
+}
+
+// --- ANOTAÇÃO ---
+let anotacaoTimer = null;
+
+function salvarAnotacao() {
+  const txt = document.getElementById('anotacao').value;
+  localStorage.setItem('neemias_anotacao', txt);
+  const ind = document.getElementById('save-indicator');
+  ind.textContent = 'Salvando...';
+  ind.className = 'save-indicator';
+  clearTimeout(anotacaoTimer);
+  anotacaoTimer = setTimeout(() => {
+    ind.textContent = '✓ Reflexão salva no seu celular';
+    ind.className = 'save-indicator saved';
+  }, 800);
+}
+
+function carregarAnotacao() {
+  const txt = localStorage.getItem('neemias_anotacao') || '';
+  const el = document.getElementById('anotacao');
+  if (el) {
+    el.value = txt;
+    if (txt) {
+      document.getElementById('save-indicator').textContent = '✓ Reflexão salva no seu celular';
+      document.getElementById('save-indicator').className = 'save-indicator saved';
+    }
+  }
+}
+
+// --- COMPARTILHAR COM DUPLA ---
+function compartilharDupla() {
+  const pillaresFeitos = [...pillarsDone].map(i => pillars[i].name);
+  const capsLidos = [...chapsDone].sort((a,b) => a-b);
+  const diasOracao = oracaoDays.size;
+  const anotacao = (document.getElementById('anotacao').value || '').trim();
+
+  const linhas = [
+    '🧱 *Reconstrução Infalível — Meu progresso desta semana*',
+    '',
+    `🙏 Dias de oração: ${diasOracao}/7`,
+    `📖 Capítulos lidos: ${capsLidos.length > 0 ? capsLidos.map(n => 'Cap.' + n).join(', ') : 'Nenhum ainda'}`,
+    `🏆 Pilares conquistados (${pillaresFeitos.length}/7): ${pillaresFeitos.length > 0 ? pillaresFeitos.join(', ') : 'Nenhum ainda'}`,
+    '',
+  ];
+
+  if (anotacao) {
+    linhas.push('✍️ *Minha reflexão da semana:*');
+    linhas.push(anotacao);
+    linhas.push('');
+  }
+
+  linhas.push('"A alegria do Senhor é a vossa força" — Ne 8:10');
+
+  const mensagem = linhas.join('\n');
+
+  // Tenta abrir WhatsApp direto, com fallback para copiar
+  const encoded = encodeURIComponent(mensagem);
+  const whatsappUrl = `https://wa.me/?text=${encoded}`;
+
+  // Copia para área de transferência também
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(mensagem).then(() => {
+      showToast('✓ Mensagem copiada! Abrindo WhatsApp...');
+    }).catch(() => {
+      showToast('Abrindo WhatsApp...');
+    });
+  } else {
+    showToast('Abrindo WhatsApp...');
+  }
+
+  setTimeout(() => { window.open(whatsappUrl, '_blank'); }, 600);
+}
+
+function zerarTudo() {
+  if (!confirm('Tem certeza? Todo o seu progresso será apagado.')) return;
+  localStorage.removeItem(SAVE_KEY);
+  localStorage.removeItem('neemias_anotacao');
+  pillarsDone.clear();
+  chapsDone.clear();
+  chapsReading.clear();
+  oracaoDays.clear();
+  challengeIdx = 0;
+  challengesDone = 0;
+  document.getElementById('stat-done').textContent = 0;
+  document.getElementById('stat-chap').textContent = 0;
+  document.getElementById('stat-oracao').textContent = 0;
+  document.getElementById('challenge-text').textContent = challenges[0];
+  document.getElementById('challenge-num').textContent = 'Desafio 1 de 7';
+  document.getElementById('anotacao').value = '';
+  document.getElementById('save-indicator').textContent = '';
+  buildWeek();
+  buildPillars();
+  buildChapters();
+  calcProgress();
+  showToast('✓ Progresso zerado!');
+}
+function detectarIphone() {
+  const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (isIphone) {
+    const aviso = document.createElement('div');
+    aviso.style.cssText = 'background:#1e2a1a;border:1px solid #4caf7d55;border-radius:8px;padding:10px 14px;margin-bottom:1rem;font-size:12px;color:#7dd4a8;line-height:1.6;';
+    aviso.innerHTML = '📱 <strong>Usuário iPhone:</strong> Para o app funcionar completamente e salvar seu progresso, abra este arquivo no <strong>Safari</strong> (não no visualizador do WhatsApp). Toque nos 3 pontinhos ••• e escolha "Abrir no Safari".';
+    document.body.insertBefore(aviso, document.body.firstChild);
+  }
+}
+
+// Atualizar contadores com dados salvos
+document.getElementById('stat-done').textContent = pillarsDone.size;
+document.getElementById('stat-chap').textContent = chapsDone.size;
+document.getElementById('stat-oracao').textContent = oracaoDays.size;
+document.getElementById('challenge-text').textContent = challenges[challengeIdx];
+document.getElementById('challenge-num').textContent = `Desafio ${challengeIdx + 1} de 7`;
+
+buildWeek();
+buildPillars();
+buildProgressBars();
+buildChapters();
+calcProgress();
+carregarAnotacao();
+detectarIphone();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => console.log('Service Worker registrado'));
+}
+</script>
+
+</body>
+</html>
